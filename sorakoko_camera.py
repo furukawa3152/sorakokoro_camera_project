@@ -53,7 +53,7 @@ if __name__ == '__main__':
     uploaded_file_h = st.file_uploader("撮影は縦で！", type=["png", "jpg"], accept_multiple_files=False)
     if uploaded_file_h is not None:
         image = Image.open(uploaded_file_h)
-        image = scale_to_width(image, 800)  # リサイズ
+        image = scale_to_width(image, 500)  # リサイズ
         image = np.array(image.convert("RGB"))
         image = cv2.cvtColor(image, 1)
         image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
