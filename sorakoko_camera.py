@@ -69,7 +69,7 @@ if __name__ == '__main__':
         aspect = im_height / im_width
         result_image = cv2.resize(result_image,(int(500 * aspect),500))
 
-        st.image(image[0],caption=f"{count}%{name}です")
+        st.image(result_image,caption=f"{count}%{name}です")
 
 
 
