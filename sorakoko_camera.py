@@ -9,7 +9,7 @@ def sorakoko_judge(test_img):
     import numpy as np
     from keras_preprocessing.image import img_to_array, load_img
 
-    sorakoko_model = r"C:\Users\user\PycharmProjects\sorakokoro_camera_project\sorakokoro_face_model.h5"
+    sorakoko_model = "sorakokoro_face_model.h5"
     model = load_model(sorakoko_model)
 
     # img_path = (test_img)
