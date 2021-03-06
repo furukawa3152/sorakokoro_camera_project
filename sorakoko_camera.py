@@ -36,7 +36,7 @@ def face_detect_MTCNN(img):
         if i["confidence"] > 0.9:
             face_result.append(i)
     if len(face_result) == 0:
-        return (img, "顔を検出出来ません。再撮影ください")
+        return (img, "顔を検出出来ません。")
     else:
         (x, y, w, h) = face_result[0]["box"]
         cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
