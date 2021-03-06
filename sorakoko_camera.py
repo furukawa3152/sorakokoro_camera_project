@@ -29,7 +29,12 @@ def face_detect_MTCNN(img):
     b_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     detect =MTCNN()
     faces =  detect.detect_faces(b_img)
-    (x, y, w, h) = faces[0]["box"]
+    face_result =[]
+    for i in faces:
+        if i["confidence"] >0.9:
+            face_result.append(i)
+
+    (x, y, w, h) = face_result[0]["box"]
     cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
     # cv2.imshow("test",img)
     # cv2.waitKey(0)
