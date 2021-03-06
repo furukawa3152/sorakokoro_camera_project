@@ -31,17 +31,25 @@ def face_detect_MTCNN(img):
     faces =  detect.detect_faces(b_img)
     face_result =[]
     for i in faces:
-        if i["confidence"] >0.9:
+        if i["confidence"] > 0.9:
             face_result.append(i)
+    if len(face_result) == 0:
+        return (img,"顔を検出出来ませんでした")
+    else:
+        (x, y, w, h) = face_result[0]["box"]
+        cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+        # cv2.imshow("test",img)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
+        face_image = img[y:y + h, x:x + w]
+        name,count = sorakoko_judge(face_image)
+        if name == "kokoro":
+            jname = "こころちゃん"
+        elif name == "sora":
+            jname = "そらちゃん"
+        count = int(count*10000)/100
 
-    (x, y, w, h) = face_result[0]["box"]
-    cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
-    # cv2.imshow("test",img)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-    face_image = img[y:y + h, x:x + w]
-    name,count = sorakoko_judge(face_image)
-    return (img,name,count)
+        return (img,f"{count}%{jname}です")
 
 def scale_to_width(img,width):  # PIL画像をアスペクト比を固定してリサイズする。
     im_height = img.height
@@ -63,18 +71,15 @@ if __name__ == '__main__':
         image = cv2.cvtColor(image, 1)
         image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
         image = face_detect_MTCNN(image)
-        if image[1] == "kokoro":
-            name = "こころちゃん"
-        elif image[1] == "sora":
-            name = "そらちゃん"
-        count = int(image[2]*100)
+
         result_image = image[0]
         im_height = result_image.shape[1]
         im_width = result_image.shape[0]
         aspect = im_height / im_width
         result_image = cv2.resize(result_image,(int(500 * aspect),500))
+        comment = image[1]
 
-        st.image(result_image,caption=f"{count}%{name}です")
+        st.image(result_image,caption=comment)
 
 
 
