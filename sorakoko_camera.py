@@ -65,7 +65,7 @@ def scale_to_width(img, width):  # PIL画像をアスペクト比を固定して
 
 if __name__ == '__main__':
     st.title("そらここカメラだよ！")
-    uploaded_file_h = st.file_uploader("撮影はこちら", type=["png", "jpg","jpeg"], accept_multiple_files=False)
+    uploaded_file_h = st.file_uploader("写真を入れてね", type=["png", "jpg","jpeg"], accept_multiple_files=False)
     if uploaded_file_h is not None:
         image = Image.open(uploaded_file_h)
         image = scale_to_width(image, 1000)  # リサイズ
@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
         st.image(result_image, caption=comment)
 
-    uploaded_file = st.file_uploader("ライブラリからはこちら", type=["png", "jpg","jpeg"], accept_multiple_files=False)
+    uploaded_file = st.file_uploader("回転してしまうときはこちらから", type=["png", "jpg","jpeg"], accept_multiple_files=False)
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         image = scale_to_width(image, 1000)  # リサイズ
