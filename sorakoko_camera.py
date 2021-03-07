@@ -65,13 +65,30 @@ def scale_to_width(img, width):  # PIL画像をアスペクト比を固定して
 
 if __name__ == '__main__':
     st.title("そらここカメラだよ！")
-    uploaded_file_h = st.file_uploader("撮影は縦で！", type=["png", "jpg","jpeg"], accept_multiple_files=False)
+    uploaded_file_h = st.file_uploader("撮影はこちら", type=["png", "jpg","jpeg"], accept_multiple_files=False)
     if uploaded_file_h is not None:
         image = Image.open(uploaded_file_h)
         image = scale_to_width(image, 1000)  # リサイズ
         image = np.array(image.convert("RGB"))
         image = cv2.cvtColor(image, 1)
         image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
+        image = face_detect_MTCNN(image)
+
+        result_image = image[0]
+        im_height = result_image.shape[1]
+        im_width = result_image.shape[0]
+        aspect = im_height / im_width
+        result_image = cv2.resize(result_image, (int(500 * aspect), 500))
+        comment = image[1]
+
+        st.image(result_image, caption=comment)
+
+    uploaded_file = st.file_uploader("ライブラリからはこちら", type=["png", "jpg","jpeg"], accept_multiple_files=False)
+    if uploaded_file is not None:
+        image = Image.open(uploaded_file)
+        image = scale_to_width(image, 1000)  # リサイズ
+        image = np.array(image.convert("RGB"))
+        image = cv2.cvtColor(image, 1)
         image = face_detect_MTCNN(image)
 
         result_image = image[0]
