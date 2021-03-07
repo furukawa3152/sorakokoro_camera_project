@@ -50,7 +50,6 @@ def face_detect_MTCNN(img):
         elif name == "sora":
             jname = "そらちゃん"
         count = int(count * 10000) / 100
-
         return (img, f"{count}%{jname}です")
 
 
@@ -66,7 +65,7 @@ def scale_to_width(img, width):  # PIL画像をアスペクト比を固定して
 
 if __name__ == '__main__':
     st.title("そらここカメラだよ！")
-    uploaded_file_h = st.file_uploader("撮影は縦で！", type=["png", "jpg"], accept_multiple_files=False)
+    uploaded_file_h = st.file_uploader("撮影は縦で！", type=["png", "jpg","jpeg"], accept_multiple_files=False)
     if uploaded_file_h is not None:
         image = Image.open(uploaded_file_h)
         image = scale_to_width(image, 1000)  # リサイズ
