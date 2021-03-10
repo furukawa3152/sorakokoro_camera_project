@@ -33,7 +33,7 @@ def face_detect_MTCNN(img):
     faces = detect.detect_faces(b_img)
     face_result = []
     for i in faces:
-        if i["confidence"] > 0.9:
+        if i["confidence"] > 0.8:
             face_result.append(i)
     if len(face_result) == 0:
         return (img, "顔を検出出来ません。")
