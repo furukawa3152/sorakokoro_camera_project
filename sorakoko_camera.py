@@ -16,7 +16,8 @@ def sorakoko_judge(test_img):
     # img_path = (test_img)
     # img = img_to_array(load_img(img_path, target_size=(50,50)))
     img = cv2.resize(test_img, (50, 50))
-    img_nad = img_to_array(img) / 255
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img_nad = img_to_array(img) / 256
     img_nad = img_nad[None, ...]
 
     label = ["kokoro", "sora"]
