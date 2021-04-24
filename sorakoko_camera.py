@@ -100,3 +100,4 @@ if __name__ == '__main__':
         comment = image[1]
 
         st.image(result_image, caption=comment)
+
